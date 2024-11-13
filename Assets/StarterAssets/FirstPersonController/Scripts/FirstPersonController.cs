@@ -131,6 +131,11 @@ namespace StarterAssets
 
 		private void CameraRotation()
 		{
+			if (DemoGameManager.Instance.inLeaderboard || DemoGameManager.Instance.inputFieldActive || DemoGameManager.Instance.gameIsPaused)
+			{
+				return;
+			}
+			
 			// if there is an input
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
@@ -153,6 +158,11 @@ namespace StarterAssets
 
 		private void Move()
 		{
+			if (DemoGameManager.Instance.inLeaderboard || DemoGameManager.Instance.inputFieldActive || DemoGameManager.Instance.gameIsPaused)
+			{
+				return;
+			}
+			
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
