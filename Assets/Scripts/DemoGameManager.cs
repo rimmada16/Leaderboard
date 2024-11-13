@@ -45,6 +45,7 @@ public class DemoGameManager : MonoBehaviour
         }
         
         CursorHandler.Instance.SetCursorState(true);
+        Time.timeScale = 1f;
     }
 
     /// <summary>

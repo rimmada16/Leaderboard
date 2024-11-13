@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -184,8 +185,7 @@ namespace Leaderboard.Scripts
             CursorHandler.Instance.SetCursorState(true);
             canvas.SetActive(false);
             Time.timeScale = 1f;
-            
-            SetSaveData(_level, _time, _playerName);
+            SetSaveData((int)levelEnum, _time, _playerName);
         }
 
         /// <summary>
@@ -329,16 +329,24 @@ namespace Leaderboard.Scripts
 
                 if (_dataList.savedData != null && _dataList.savedData.Count > 0)
                 {
-                    // Access the last entry in the list
-                    var latestEntry = _dataList.savedData[_dataList.savedData.Count - 1];
+                    // Filter entries to find the last entry for the current selected level
+                    var latestEntryForLevel = _dataList.savedData
+                        .LastOrDefault(entry => entry.level == (int)levelEnum);
 
-                    // Get the time of the latest entry
-                    var latestTime = latestEntry.time;
-                    latestEntryText.text = $"Last Logged Time: {latestTime:F2}s";
+                    if (latestEntryForLevel != null)
+                    {
+                        // Display the time of the last entry for the selected level
+                        latestEntryText.text = $"Last Logged Time for {levelEnum}: {latestEntryForLevel.time:F2}s";
+                    }
+                    else
+                    {
+                        // No entries for the selected level
+                        latestEntryText.text = $"Last Logged Time for {levelEnum}: No Entries";
+                    }
                 }
                 else
                 {
-                    latestEntryText.text = "Last Logged Time: No Entries";
+                    latestEntryText.text = "No save data found to display last logged time!";
                 }
             }
         }
