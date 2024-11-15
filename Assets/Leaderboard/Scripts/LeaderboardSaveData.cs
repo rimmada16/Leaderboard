@@ -285,14 +285,14 @@ namespace Leaderboard.Scripts
         
             if (_dataList.savedData == null || _dataList.savedData.Count == 0)
             {
-                Debug.Log("No save data available for leaderboard.");
+                Debug.Log("No save data available for the leaderboard.");
             }
 
             if (_dataList.savedData != null)
             {
                 foreach (var entry in _dataList.savedData)
                 {
-                    // Compare the entry's level with the selectedLevel directly as enums
+                    // Compare the entry's level with the selectedLevel
                     if (entry.level == (int)levelEnum)
                     {
                         _filteredData.Add(entry);
